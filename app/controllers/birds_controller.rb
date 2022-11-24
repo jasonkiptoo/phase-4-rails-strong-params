@@ -7,8 +7,14 @@ class BirdsController < ApplicationController
   end
 
   # POST /birds
+  # def create
+  #   bird = Bird.create(params.permit(:name, :species))
+  #   render json: bird, status: :created
+  # end
+# method fot the private params
+
   def create
-    bird = Bird.create(name: params[:name], species: params[:species])
+    bird = Bird.create(birds_params)
     render json: bird, status: :created
   end
 
@@ -20,6 +26,12 @@ class BirdsController < ApplicationController
     else
       render json: { error: "Bird not found" }, status: :not_found
     end
+  end
+
+  private
+
+  def birds_params
+    params.permit(:name,:species)
   end
 
 end
